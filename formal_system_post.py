@@ -196,31 +196,32 @@ def use_rule_x(index, y, rule):
     return new_y
 
 
-# Проверяем начальные данные
-if check_Y(A, Y) or check_R(A, X, R):
-    exit()
+if __name__ == "__main__":
+    # Проверяем начальные данные
+    if check_Y(A, Y) or check_R(A, X, R):
+        exit()
 
-iter = 0
-while True:
-    flag = False
-    for i in R:     # Идем по правилам
-        start_point, size_list, x_list, x_flag = eq_rule(Y, X, i, A1)   # проверяем можно ли юзануть правило
-        if start_point != -1:   # если да
-            iter += 1
-            ASK.write(str(iter) + "." + "\n")
-            ASK.write(" начальная строка - " + str(Y) + "\n")
-            ASK.write(" правило - " + str(i) + "\n")
-            if x_flag:
-                Y = use_rule(start_point, size_list, x_list, i, Y, A)     # юзаем правило
-            else:
-                Y = use_rule_x(start_point, Y, i)
-            ASK.write(" после правила - " + str(Y) + "\n")
-            flag = True     # отмечаем что за этот цикл прохода оп правилам они были юзаны
-            break
-    # Если правила не юзаются тормозим
-    if flag:
+    iter = 0
+    while True:
         flag = False
-    else:
-        break
-ASK.close()
-print("Вычисления закончены")
+        for i in R:     # Идем по правилам
+            start_point, size_list, x_list, x_flag = eq_rule(Y, X, i, A1)   # проверяем можно ли юзануть правило
+            if start_point != -1:   # если да
+                iter += 1
+                ASK.write(str(iter) + "." + "\n")
+                ASK.write(" начальная строка - " + str(Y) + "\n")
+                ASK.write(" правило - " + str(i) + "\n")
+                if x_flag:
+                    Y = use_rule(start_point, size_list, x_list, i, Y, A)     # юзаем правило
+                else:
+                    Y = use_rule_x(start_point, Y, i)
+                ASK.write(" после правила - " + str(Y) + "\n")
+                flag = True     # отмечаем что за этот цикл прохода оп правилам они были юзаны
+                break
+        # Если правила не юзаются тормозим
+        if flag:
+            flag = False
+        else:
+            break
+    ASK.close()
+    print("Вычисления закончены")
